@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive and Dynamic Web Page</title>
+  <style>
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #00bcd4, #8e44ad);
+      color: white;
+      text-align: center;
+    }
+
+    h2, h3 {
+      color: #fff;
+      font-size: 1.8em;
+    }
+
+    h2, h3, p {
+      margin: 20px 0;
+    }
+
+
+    .transitionButton {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .transitionButton:hover {
+      background-color: #45a049;
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .fadeInBox {
+      width: 200px;
+      height: 200px;
+      background-color: #f39c12;
+      margin: 0 auto;
+      animation: fadeIn 3s ease-in-out;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .rotateBox {
+      width: 100px;
+      height: 100px;
+      background-color: #3498db;
+      margin: 0 auto;
+      animation: rotate 4s linear infinite;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .modal {
+      display: none;
+      width: 300px;
+      height: 150px;
+      background-color: #e74c3c;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      margin: 0 auto;
+      position: relative;
+      animation: modalFadeIn 0.5s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal.show {
+      display: block;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #2ecc71;
+      margin: 0 auto;
+      border-radius: 10px;
+      transition: transform 1s ease, box-shadow 0.5s ease;
+    }
+
+    .box.animate {
+      transform: rotate(360deg);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    button, input {
+      font-size: 1em;
+      padding: 12px 24px;
+      border: none;
+      background-color: #34495e;
+      color: white;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover, input:hover {
+      background-color: #2c3e50;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .scrollToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff6f61;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50%;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .scrollToTop:hover {
+      background-color: #d9534f;
+      transform: scale(1.1);
+    }
+
+  </style>
+</head>
+<body>
+
+  <h2>Hover Effect on Button</h2>
+  <button class="transitionButton">Hover over me!Hurray!</button>
+
+  <h2>CSS Animations</h2>
+  <div class="fadeInBox">This box fades in!</div>
+  <div class="rotateBox">Woaaaah! box rotates!</div>
+
+  <h2>JavaScript Functions</h2>
+  <p>Area of rectangle: <span id="areaOutput"></span></p>
+  <button onclick="calculateArea(5, 10)">Calculate Area</button>
+
+  <h3>Scope Example</h3>
+  <button onclick="showScopeExample()">Show Scope Example</button>
+
+  <h2>Modal Toggle</h2>
+  <div id="modal" class="modal">This is a modal!</div>
+  <button onclick="toggleModal()">Toggle Modal</button>
+
+  <h2>Animate Box</h2>
+  <div id="box" class="box">Click me to animate!</div>
+  <button onclick="triggerAnimation()">Start Animation</button>
+
+  <button class="scrollToTop" onclick="scrollToTop()">↑</button>
+
+  <script>
+    
+    function calculateArea(length, width) {
+      return length * width;
+    }
+    document.getElementById('areaOutput').innerText = calculateArea(5, 10);
+
+    let globalVar = "I'm a global variable"; 
+    function showScopeExample() {
+      let localVar = "I'm a local variable"; 
+      alert(globalVar); 
+      alert(localVar);  
+    }
+
+    function toggleModal() {
+      let modal = document.getElementById('modal');
+      modal.classList.toggle('show');
+    }
+
+    function triggerAnimation() {
+      let box = document.getElementById('box');
+      box.classList.add('animate');
+      
+      box.addEventListener('transitionend', function() {
+        box.classList.remove('animate');
+      });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
